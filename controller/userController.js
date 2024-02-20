@@ -5,6 +5,7 @@ const { StatusCodes } = require("http-status-codes");
 const jwt = require("jsonwebtoken");
 async function register(req, res) {
   const { username, firstname, lastname, email, password } = req.body;
+
   if (!email || !username || !firstname || !lastname || !password) {
     res
       .status(StatusCodes.BAD_REQUEST)
@@ -16,6 +17,7 @@ async function register(req, res) {
       "select username, userid from user where username = ? or email = ?",
       [username, email]
     );
+
     if (user.length > 0) {
       return res
         .status(StatusCodes.BAD_REQUEST)
